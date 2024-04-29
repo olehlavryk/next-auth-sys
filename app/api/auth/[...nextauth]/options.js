@@ -3,6 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import User from '@/app/models/User'
+import { adminsList, roles } from '@/app/constants'
 
 export const options = {
   providers: [
@@ -10,17 +11,15 @@ export const options = {
       profile(profile) {
         console.log("Profile Github:", profile)
 
-        let userRole = 'GitHub User'
-        if (profile?.email === 'oleh.lavrik@gmail.com') {
-          userRole = 'admin'
+        let userRole = roles.USER
+        if (adminsList.includes(profile?.email)) {
+          userRole = roles.ADMIN
         }
 
         const userProfile = {
           ...profile,
           role: userRole
         }
-
-        console.log("User Profile:", userProfile)
         return userProfile
 
       },
@@ -29,7 +28,11 @@ export const options = {
     }),
     GoogleProvider({
       profile(profile) {
-        let userRole = 'Google User'
+        let userRole = roles.USER
+
+        if (adminsList.includes(profile?.email)) {
+          userRole = roles.ADMIN
+        }
 
         return {
           ...profile,
@@ -65,10 +68,13 @@ export const options = {
             const match = await bcrypt.compare(credentials.password, foundUser.password)
 
             if (match) {
-              console.log('Password Match')
               delete foundUser.password
 
-              foundUser["role"] = 'Unverified Email'
+              foundUser["role"] = roles.GUEST
+
+              if (adminsList.includes(foundUser?.email)) {
+                foundUser["role"] = roles.ADMIN
+              }
 
               return foundUser
             }
