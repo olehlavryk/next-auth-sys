@@ -8,6 +8,7 @@ const UserForm = () => {
   const [formData, setFormData] = useState({})
   const [errorMessage, setErrorMessage] = useState("")
 
+
   const handleChange = (e) => {
     const value = e.target.value
     const name = e.target.name
@@ -41,53 +42,52 @@ const UserForm = () => {
 
   return (
     <>
-      {/* TODO style form */}
       <form
         onSubmit={handleSubmit}
         method="POST"
-        className='flex flex-col gap-3 w-1/2'>
+        className='flex flex-col gap-3 items-center mt-16'>
         <h1>Create new user</h1>
-        <div>
+        <div className='flex flex-col gap-1 w-1/3 p-0 m-0'>
           <label>Full Name</label>
           <input
             id="name"
             name="name"
             type="text"
             onChange={handleChange}
-            required={true}
+            required
             value={formData.name}
-            className="m-2  bg-slate-400 rounded" />
+            className="m-2 bg-slate-400 rounded py-1 mx-0" />
         </div>
 
-        <div>
+        <div className='flex flex-col gap-1 w-1/3 p-0 m-0'>
           <label>Email</label>
           <input
             id="email"
             name="email"
             type="text"
             onChange={handleChange}
-            required={true}
+            required
             value={formData.email}
-            className="m-2  bg-slate-400 rounded" />
+            className="m-2 bg-slate-400 rounded py-1 mx-0" />
         </div>
 
-        <div>
+        <div className='flex flex-col gap-1 w-1/3 p-0 m-0'>
           <label>Password</label>
           <input
             id="password"
             name="password"
             type="password"
             onChange={handleChange}
-            required={true}
+            required
             value={formData.password}
-            className="m-2  bg-slate-400 rounded" />
+            className="m-2 bg-slate-400 rounded py-1 mx-0" />
         </div>
 
-        <div>
+        <div className='flex flex-col gap-1 w-1/3 p-0 m-0'>
           <input
             type="submit"
             value="Create User"
-            className="bg-blue-300 hover:bg-blue-100" />
+            className="bg-blue-300 hover:bg-blue-100 p-3 rounded" />
         </div>
       </form>
       <p className="text-red-500">{errorMessage}</p>
