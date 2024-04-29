@@ -1,6 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Sign includes
+## Sign in
+
+You can use Google or GitHub providers.
+For credentials:
+Login: admin@email.com
+Password: admin
 
 ## Getting Started
 
